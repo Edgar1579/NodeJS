@@ -7,7 +7,7 @@ const { body, query, matchedData, validationResult } = pkg;
 
 const app = express();
 
-// Configurar CORS para permitir solicitudes desde varios orígenes
+// Configurar CORS
 app.use(cors({
   origin: ['*'] // Especifica tus orígenes permitidos
 }));
@@ -27,6 +27,12 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json(formatoRta("", "Error interno del servidor"));
+});
+
+// Configurar el puerto
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
 export default app;
