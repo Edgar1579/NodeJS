@@ -7,27 +7,27 @@ const { body, query, matchedData, validationResult } = pkg;
 
 const app = express();
 
-// Configurar CORS
-app.use(cors({
-  origin: ['*'] // Especifica tus orígenes permitidos
-}));
+// Use CORS middleware and allow all origins (you can specify domains instead of * if you want to restrict access)
+app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 
-// Rutas de la API
-app.use('/api', usuariosRoutes);
+app.listen(3000)
 
-// Manejo de rutas no encontradas
+// Use your custom routes
+app.use("/api", usuariosRoutes);
+
+// Handle 404 errors for non-existing routes
 app.use((req, res, next) => {
   console.log("Petición a ruta no encontrada...");
-  res.status(404).json(formatoRta("", "endpoint no encontrada"));
+  res.status(404).json(formatoRta("", "endpoint no encontrado...."));
 });
 
-// Middleware de manejo de errores global
+/* // Middleware de manejo de errores global
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json(formatoRta("", "Error interno del servidor"));
-});
+}); */
 
 
 export default app;
